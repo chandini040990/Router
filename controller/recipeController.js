@@ -7,9 +7,9 @@ exports.createRecipe = async (req, res) => {
         const newRecipe = new Recipe(req.body);
         await newRecipe.save();
         res.status(201).json(newRecipe);
-    } catch(error) {
+    } catch (error) {
         res.status(400).json({
-            message: "Not Created", 
+            message: "Not Created",
             error: error.message
         })
     }
@@ -21,7 +21,7 @@ exports.getAllRecipes = async (req, res) => {
     try {
         const recipe = await Recipe.find()
         res.status(200).json(recipe);
-    } catch(error) {
+    } catch (error) {
         res.status(500).json({
             message: "Error fetching the recipes",
             error: error.message
@@ -34,15 +34,15 @@ exports.getAllRecipes = async (req, res) => {
 exports.getRecipeById = async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
-        if(!recipe) {
+        if (!recipe) {
             return res.status(404).json({
                 message: "Recipe not found"
             })
         }
         res.status(200).json(recipe);
-    } catch(error) {
+    } catch (error) {
         res.status(500).json({
-            message: "Error fetching the recipe", 
+            message: "Error fetching the recipe",
             error: error.message
         })
     }
@@ -53,15 +53,15 @@ exports.getRecipeById = async (req, res) => {
 exports.updateRecipe = async (req, res) => {
     try {
         const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if(!recipe) {
+        if (!recipe) {
             return res.status(404).json({
                 message: "Recipe not found"
             })
         }
         res.status(200).json(recipe);
-    } catch(error) {
+    } catch (error) {
         res.status(400).json({
-            message: "Error Updating the recipe", 
+            message: "Error Updating the recipe",
             error: error.message
         })
     }
@@ -72,15 +72,15 @@ exports.updateRecipe = async (req, res) => {
 exports.deleteRecipe = async (req, res) => {
     try {
         const recipe = await Recipe.findByIdAndDelete(req.params.id);
-        if(!recipe) {
+        if (!recipe) {
             return res.status(404).json({
                 message: "Recipe not found"
             })
         }
         res.status(204).send();
-    } catch(error) {
+    } catch (error) {
         res.status(400).json({
-            message: "Error deleting the recipe", 
+            message: "Error deleting the recipe",
             error: error.message
         })
     }
